@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <!-- LT Trigger -->
+    <com.xboxcontroller.controller.TriggerView
+        android:id="@+id/triggerLT"
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp" />
+
+    <!-- LB Bumper -->
+    <com.xboxcontroller.controller.ButtonView
+        android:id="@+id/buttonLB"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="72dp" />
+
+    <!-- L3 Button -->
+    <com.xboxcontroller.controller.ButtonView
+        android:id="@+id/buttonL3"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="128dp" />
+
+    <!-- Left Joystick -->
+    <com.xboxcontroller.controller.JoystickView
+        android:id="@+id/leftJoystick"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="184dp" />
+
+    <!-- D-Pad -->
+    <com.xboxcontroller.controller.DPadView
+        android:id="@+id/dpad"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="340dp" />
+
+    <!-- RT Trigger -->
+    <com.xboxcontroller.controller.TriggerView
+        android:id="@+id/triggerRT"
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp" />
+
+    <!-- RB Bumper -->
+    <com.xboxcontroller.controller.ButtonView
+        android:id="@+id/buttonRB"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="72dp" />
+
+    <!-- R3 Button -->
+    <com.xboxcontroller.controller.ButtonView
+        android:id="@+id/buttonR3"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="68dp"
+        android:layout_marginTop="128dp" />
+
+    <!-- ABXY Buttons Group -->
+    <RelativeLayout
+        android:id="@+id/abxyContainer"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="184dp">
+
+        <com.xboxcontroller.controller.ButtonView
+            android:id="@+id/buttonY"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true" />
+
+        <com.xboxcontroller.controller.ButtonView
+            android:id="@+id/buttonX"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true" />
+
+        <com.xboxcontroller.controller.ButtonView
+            android:id="@+id/buttonB"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true" />
+
+        <com.xboxcontroller.controller.ButtonView
+            android:id="@+id/buttonA"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <!-- Right Joystick -->
+    <com.xboxcontroller.controller.JoystickView
+        android:id="@+id/rightJoystick"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="340dp" />
+
+    <!-- Connection Status -->
+    <TextView
+        android:id="@+id/connectionStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="8dp"
+        android:text="Player 1"
+        android:textColor="@color/accent"
+        android:textSize="12sp" />
+
+    <!-- Menu Buttons Group (Back/Guide/Start) -->
+    <LinearLayout
+        android:id="@+id/menuButtonsGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <com.xboxcontroller.controller.ButtonView
+            android:id="@+id/buttonBack"
+            android:layout_width="48dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp" />
+
+        <com.xboxcontroller.controller.ButtonView
+            android:id="@+id/buttonGuide"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+
+        <com.xboxcontroller.controller.ButtonView
+            android:id="@+id/buttonStart"
+            android:layout_width="48dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp" />
+    </LinearLayout>
+
+    <!-- Trackpad Group -->
+    <LinearLayout
+        android:id="@+id/trackpadGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <FrameLayout
+            android:id="@+id/trackpadArea"
+            android:layout_width="180dp"
+            android:layout_height="100dp"
+            android:background="@drawable/trackpad_background">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="🖱️ Trackpad"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:alpha="0.5" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/keyboardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_marginTop="8dp"
+            android:text="⌨️ Keyboard"
+            android:textColor="@color/text_primary"
+            android:textSize="11sp"
+            android:background="@drawable/button_background"
+            android:paddingHorizontal="16dp" />
+    </LinearLayout>
+
+    <!-- Settings Group -->
+    <LinearLayout
+        android:id="@+id/settingsGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/settingsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="⚙️"
+            android:textSize="14sp"
+            android:background="@drawable/button_background"
+            android:paddingHorizontal="12dp"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/disconnectButton"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="✕"
+            android:textColor="#FF5555"
+            android:textSize="14sp"
+            android:background="@drawable/button_background"
+            android:paddingHorizontal="12dp" />
+    </LinearLayout>
+
+    <!-- Keyboard Input Overlay -->
+    <LinearLayout
+        android:id="@+id/keyboardLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#F0000000"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type and press Enter to send"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/keyboardInput"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:hint="Type here..."
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:background="@color/surface"
+                android:padding="12dp"
+                android:inputType="text"
+                android:imeOptions="actionSend" />
+
+            <Button
+                android:id="@+id/closeKeyboardButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="✕"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/button_background"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Edit Mode Overlay -->
+    <LinearLayout
+        android:id="@+id/editModeOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="#CC000000"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="✏️ EDIT MODE - Drag elements"
+            android:textColor="#FFFF00"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/saveLayoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Save"
+            android:textColor="#00FF00"
+            android:background="@drawable/button_background"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/resetLayoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Reset"
+            android:background="@drawable/button_background"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/cancelEditButton"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Cancel"
+            android:background="@drawable/button_background" />
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,58 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Xbox controller icon -->
+    <group android:translateX="22" android:translateY="34">
+        <!-- Controller body -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M32,0 C14.3,0 0,10 0,22 L0,28 C0,40 14.3,50 32,50 C49.7,50 64,40 64,28 L64,22 C64,10 49.7,0 32,0 Z" />
+        
+        <!-- Left grip -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M0,22 C-4,22 -8,28 -8,35 L-8,42 C-8,46 -4,50 0,50 L10,50 L10,22 Z" />
+        
+        <!-- Right grip -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M64,22 C68,22 72,28 72,35 L72,42 C72,46 68,50 64,50 L54,50 L54,22 Z" />
+        
+        <!-- Left joystick -->
+        <path
+            android:fillColor="#107C10"
+            android:pathData="M18,18 m-8,0 a8,8 0,1 1,16 0 a8,8 0,1 1,-16 0" />
+        
+        <!-- Right joystick -->
+        <path
+            android:fillColor="#107C10"
+            android:pathData="M46,28 m-8,0 a8,8 0,1 1,16 0 a8,8 0,1 1,-16 0" />
+        
+        <!-- D-pad -->
+        <path
+            android:fillColor="#107C10"
+            android:pathData="M18,32 L18,28 L14,28 L14,32 L10,32 L10,36 L14,36 L14,40 L18,40 L18,36 L22,36 L22,32 Z" />
+        
+        <!-- A button -->
+        <path
+            android:fillColor="#3CB043"
+            android:pathData="M46,18 m-4,0 a4,4 0,1 1,8 0 a4,4 0,1 1,-8 0" />
+        
+        <!-- B button -->
+        <path
+            android:fillColor="#E74C3C"
+            android:pathData="M54,12 m-4,0 a4,4 0,1 1,8 0 a4,4 0,1 1,-8 0" />
+        
+        <!-- X button -->
+        <path
+            android:fillColor="#3498DB"
+            android:pathData="M38,12 m-4,0 a4,4 0,1 1,8 0 a4,4 0,1 1,-8 0" />
+        
+        <!-- Y button -->
+        <path
+            android:fillColor="#F1C40F"
+            android:pathData="M46,6 m-4,0 a4,4 0,1 1,8 0 a4,4 0,1 1,-8 0" />
+    </group>
+</vector>

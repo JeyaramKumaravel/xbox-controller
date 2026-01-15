@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <!-- Camera Preview -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Overlay with scanning frame -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000" />
+
+    <!-- Scan frame -->
+    <FrameLayout
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent">
+
+        <!-- Corner decorations -->
+        <View
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:background="@color/accent"
+            android:layout_gravity="top|start" />
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="40dp"
+            android:background="@color/accent"
+            android:layout_gravity="top|start" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:background="@color/accent"
+            android:layout_gravity="top|end" />
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="40dp"
+            android:background="@color/accent"
+            android:layout_gravity="top|end" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:background="@color/accent"
+            android:layout_gravity="bottom|start" />
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="40dp"
+            android:background="@color/accent"
+            android:layout_gravity="bottom|start" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:background="@color/accent"
+            android:layout_gravity="bottom|end" />
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="40dp"
+            android:background="@color/accent"
+            android:layout_gravity="bottom|end" />
+
+    </FrameLayout>
+
+    <!-- Instructions -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="80dp"
+        android:text="Point camera at QR code on PC"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp" />
+
+    <!-- Cancel button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="48dp"
+        android:text="Cancel"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:textColor="@color/text_primary" />
+
+</FrameLayout>

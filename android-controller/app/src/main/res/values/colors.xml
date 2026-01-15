@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark Xbox-inspired colors -->
+    <color name="primary">#107C10</color>
+    <color name="primary_dark">#0B5C0B</color>
+    <color name="accent">#00FF88</color>
+    <color name="accent_dark">#00CC6A</color>
+    
+    <color name="background">#0D0D0D</color>
+    <color name="surface">#1A1A1A</color>
+    <color name="surface_light">#2D2D2D</color>
+    
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#888888</color>
+    
+    <color name="button_face">#333333</color>
+    <color name="button_pressed">#107C10</color>
+    <color name="button_border">#555555</color>
+    
+    <color name="joystick_bg">#222222</color>
+    <color name="joystick_thumb">#444444</color>
+    
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    
+    <!-- Xbox button colors -->
+    <color name="xbox_green">#107C10</color>
+    <color name="button_a">#3CB043</color>
+    <color name="button_b">#E74C3C</color>
+    <color name="button_x">#3498DB</color>
+    <color name="button_y">#F1C40F</color>
+</resources>
