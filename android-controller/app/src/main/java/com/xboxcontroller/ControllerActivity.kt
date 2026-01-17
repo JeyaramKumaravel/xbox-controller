@@ -314,6 +314,10 @@ class ControllerActivity : AppCompatActivity() {
                         binding.connectionStatus.text = "Connecting..."
                         binding.connectionStatus.setTextColor(getColor(R.color.button_y))
                     }
+                    is WebSocketClient.ConnectionState.Reconnecting -> {
+                        binding.connectionStatus.text = "Reconnecting..."
+                        binding.connectionStatus.setTextColor(getColor(R.color.button_y))
+                    }
                     is WebSocketClient.ConnectionState.Error -> {
                         binding.connectionStatus.text = "Error"
                         binding.connectionStatus.setTextColor(getColor(R.color.button_b))
@@ -331,10 +335,27 @@ class ControllerActivity : AppCompatActivity() {
 
                 binding.leftJoystick.deadzone = settings.deadzone
                 binding.rightJoystick.deadzone = settings.deadzone
+                
+                // Apply sensitivity to joysticks
+                binding.leftJoystick.sensitivity = settings.sensitivity
+                binding.rightJoystick.sensitivity = settings.sensitivity
+                
+                // Apply global scale to all draggable elements
+                applyGlobalScale(settings.globalScale)
+                
+                // Apply auto-reconnect setting
+                webSocketClient.autoReconnectEnabled = settings.autoReconnect
 
                 trackpadArea.visibility = if (settings.showTrackpad) View.VISIBLE else View.GONE
                 keyboardButton.visibility = if (settings.showKeyboard) View.VISIBLE else View.GONE
             }
+        }
+    }
+    
+    private fun applyGlobalScale(scale: Float) {
+        draggableElements.forEach { view ->
+            view.scaleX = scale
+            view.scaleY = scale
         }
     }
 

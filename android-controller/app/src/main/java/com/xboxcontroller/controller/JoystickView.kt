@@ -31,6 +31,7 @@ class JoystickView @JvmOverloads constructor(
 
     var listener: OnJoystickMoveListener? = null
     var deadzone: Float = 0.15f
+    var sensitivity: Float = 1.0f
 
     // Position values (-1.0 to 1.0)
     var positionX: Float = 0f
@@ -144,8 +145,9 @@ class JoystickView @JvmOverloads constructor(
             // Scale to use full range after deadzone
             val scaledMagnitude = (magnitude - deadzone) / (1f - deadzone)
             val angle = atan2(normalizedY, normalizedX)
-            positionX = (cos(angle) * scaledMagnitude).coerceIn(-1f, 1f)
-            positionY = (sin(angle) * scaledMagnitude).coerceIn(-1f, 1f)
+            // Apply sensitivity multiplier and clamp to valid range
+            positionX = (cos(angle) * scaledMagnitude * sensitivity).coerceIn(-1f, 1f)
+            positionY = (sin(angle) * scaledMagnitude * sensitivity).coerceIn(-1f, 1f)
         }
 
         listener?.onMove(positionX, positionY)

@@ -86,6 +86,12 @@ class MainActivity : AppCompatActivity() {
                         binding.scanButton.isEnabled = false
                         binding.connectButton.isEnabled = false
                     }
+                    is WebSocketClient.ConnectionState.Reconnecting -> {
+                        binding.statusText.text = "Reconnecting..."
+                        binding.statusText.setTextColor(getColor(R.color.button_y))
+                        binding.scanButton.isEnabled = false
+                        binding.connectButton.isEnabled = false
+                    }
                     is WebSocketClient.ConnectionState.Connected -> {
                         binding.statusText.text = getString(R.string.connected)
                         binding.statusText.setTextColor(getColor(R.color.accent))

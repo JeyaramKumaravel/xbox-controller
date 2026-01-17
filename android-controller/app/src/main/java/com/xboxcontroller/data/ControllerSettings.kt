@@ -16,6 +16,9 @@ data class ControllerSettings(
     val hapticFeedback: Boolean = true,
     val hapticIntensity: Int = 50,
     val deadzone: Float = 0.15f,
+    val sensitivity: Float = 1.0f,
+    val globalScale: Float = 1.0f,
+    val autoReconnect: Boolean = true,
     val lastServerHost: String = "",
     val lastServerPort: Int = 8765,
     val showTrackpad: Boolean = true,
@@ -57,6 +60,9 @@ class SettingsRepository(private val context: Context) {
         val HAPTIC_FEEDBACK = booleanPreferencesKey("haptic_feedback")
         val HAPTIC_INTENSITY = intPreferencesKey("haptic_intensity")
         val DEADZONE = floatPreferencesKey("deadzone")
+        val SENSITIVITY = floatPreferencesKey("sensitivity")
+        val GLOBAL_SCALE = floatPreferencesKey("global_scale")
+        val AUTO_RECONNECT = booleanPreferencesKey("auto_reconnect")
         val LAST_SERVER_HOST = stringPreferencesKey("last_server_host")
         val LAST_SERVER_PORT = intPreferencesKey("last_server_port")
         val SHOW_TRACKPAD = booleanPreferencesKey("show_trackpad")
@@ -74,6 +80,9 @@ class SettingsRepository(private val context: Context) {
             hapticFeedback = prefs[Keys.HAPTIC_FEEDBACK] ?: true,
             hapticIntensity = prefs[Keys.HAPTIC_INTENSITY] ?: 50,
             deadzone = prefs[Keys.DEADZONE] ?: 0.15f,
+            sensitivity = prefs[Keys.SENSITIVITY] ?: 1.0f,
+            globalScale = prefs[Keys.GLOBAL_SCALE] ?: 1.0f,
+            autoReconnect = prefs[Keys.AUTO_RECONNECT] ?: true,
             lastServerHost = prefs[Keys.LAST_SERVER_HOST] ?: "",
             lastServerPort = prefs[Keys.LAST_SERVER_PORT] ?: 8765,
             showTrackpad = prefs[Keys.SHOW_TRACKPAD] ?: true,
@@ -173,6 +182,24 @@ class SettingsRepository(private val context: Context) {
     suspend fun updateShowKeyboard(show: Boolean) {
         context.dataStore.edit { prefs ->
             prefs[Keys.SHOW_KEYBOARD] = show
+        }
+    }
+    
+    suspend fun updateSensitivity(sensitivity: Float) {
+        context.dataStore.edit { prefs ->
+            prefs[Keys.SENSITIVITY] = sensitivity.coerceIn(0.5f, 2.0f)
+        }
+    }
+    
+    suspend fun updateGlobalScale(scale: Float) {
+        context.dataStore.edit { prefs ->
+            prefs[Keys.GLOBAL_SCALE] = scale.coerceIn(0.5f, 1.5f)
+        }
+    }
+    
+    suspend fun updateAutoReconnect(enabled: Boolean) {
+        context.dataStore.edit { prefs ->
+            prefs[Keys.AUTO_RECONNECT] = enabled
         }
     }
 }

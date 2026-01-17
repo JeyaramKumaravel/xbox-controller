@@ -116,6 +116,98 @@
                     android:textAlignment="textEnd" />
             </LinearLayout>
 
+            <!-- Analog Sensitivity -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Analog Sensitivity"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp">
+
+                <SeekBar
+                    android:id="@+id/sensitivitySlider"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:max="150"
+                    android:progress="50" />
+
+                <TextView
+                    android:id="@+id/sensitivityValue"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="100%"
+                    android:textColor="@color/text_secondary"
+                    android:textAlignment="textEnd" />
+            </LinearLayout>
+
+            <!-- Global Scale -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Controller Scale"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp">
+
+                <SeekBar
+                    android:id="@+id/globalScaleSlider"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:max="100"
+                    android:progress="50" />
+
+                <TextView
+                    android:id="@+id/globalScaleValue"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="100%"
+                    android:textColor="@color/text_secondary"
+                    android:textAlignment="textEnd" />
+            </LinearLayout>
+
+            <!-- Auto-Reconnect -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Auto-Reconnect"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/autoReconnectSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true" />
+            </LinearLayout>
+
             <!-- Show Trackpad -->
             <LinearLayout
                 android:layout_width="match_parent"

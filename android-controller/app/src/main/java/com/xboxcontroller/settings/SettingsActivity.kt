@@ -40,6 +40,14 @@ class SettingsActivity : AppCompatActivity() {
             binding.hapticIntensitySlider.progress = settings.hapticIntensity
             binding.hapticIntensitySlider.isEnabled = settings.hapticFeedback
             binding.deadzoneSlider.progress = (settings.deadzone * 100).toInt()
+            
+            // Sensitivity: 0.5-2.0 maps to slider 0-150 (value = 0.5 + progress/100)
+            binding.sensitivitySlider.progress = ((settings.sensitivity - 0.5f) * 100).toInt()
+            
+            // Global scale: 0.5-1.5 maps to slider 0-100 (value = 0.5 + progress/100)
+            binding.globalScaleSlider.progress = ((settings.globalScale - 0.5f) * 100).toInt()
+            
+            binding.autoReconnectSwitch.isChecked = settings.autoReconnect
             binding.trackpadSwitch.isChecked = settings.showTrackpad
             binding.keyboardSwitch.isChecked = settings.showKeyboard
 
@@ -69,6 +77,20 @@ class SettingsActivity : AppCompatActivity() {
             lifecycleScope.launch { settingsRepository.updateDeadzone(deadzone) }
         })
 
+        binding.sensitivitySlider.setOnSeekBarChangeListener(createSeekBarListener { progress ->
+            val sensitivity = 0.5f + progress / 100f
+            lifecycleScope.launch { settingsRepository.updateSensitivity(sensitivity) }
+        })
+
+        binding.globalScaleSlider.setOnSeekBarChangeListener(createSeekBarListener { progress ->
+            val scale = 0.5f + progress / 100f
+            lifecycleScope.launch { settingsRepository.updateGlobalScale(scale) }
+        })
+
+        binding.autoReconnectSwitch.setOnCheckedChangeListener { _, isChecked ->
+            lifecycleScope.launch { settingsRepository.updateAutoReconnect(isChecked) }
+        }
+
         binding.trackpadSwitch.setOnCheckedChangeListener { _, isChecked ->
             lifecycleScope.launch { settingsRepository.updateShowTrackpad(isChecked) }
         }
@@ -94,5 +116,14 @@ class SettingsActivity : AppCompatActivity() {
     private fun updateLabels() {
         binding.hapticIntensityValue.text = "${binding.hapticIntensitySlider.progress}%"
         binding.deadzoneValue.text = "${binding.deadzoneSlider.progress}%"
+        
+        // Sensitivity: slider 0-150 → display 50%-200%
+        val sensitivityPercent = 50 + binding.sensitivitySlider.progress
+        binding.sensitivityValue.text = "${sensitivityPercent}%"
+        
+        // Global scale: slider 0-100 → display 50%-150%
+        val scalePercent = 50 + binding.globalScaleSlider.progress
+        binding.globalScaleValue.text = "${scalePercent}%"
     }
 }
+

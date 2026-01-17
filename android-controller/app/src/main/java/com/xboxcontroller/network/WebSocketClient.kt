@@ -17,7 +17,8 @@ class WebSocketClient {
     
     companion object {
         private const val TAG = "WebSocketClient"
-        private const val PING_INTERVAL = 15000L // 15 seconds
+        private const val INITIAL_RETRY_DELAY_MS = 1000L
+        private const val MAX_RETRY_DELAY_MS = 30000L
     }
     
     private val client = OkHttpClient.Builder()
@@ -37,10 +38,19 @@ class WebSocketClient {
     private var scope: CoroutineScope? = null
     private val inputQueue = Channel<ControllerInput>(Channel.CONFLATED)
     
+    // Auto-reconnect properties
+    var autoReconnectEnabled: Boolean = true
+    private var lastHost: String = ""
+    private var lastPort: Int = 0
+    private var reconnectJob: Job? = null
+    private var currentRetryDelay = INITIAL_RETRY_DELAY_MS
+    private var isManualDisconnect = false
+    
     sealed class ConnectionState {
         object Disconnected : ConnectionState()
         object Connecting : ConnectionState()
         data class Connected(val playerId: Int) : ConnectionState()
+        data class Reconnecting(val attempt: Int, val nextRetryMs: Long) : ConnectionState()
         data class Error(val message: String) : ConnectionState()
     }
     
@@ -54,6 +64,15 @@ class WebSocketClient {
             return
         }
         
+        // Reset reconnection state
+        isManualDisconnect = false
+        cancelReconnect()
+        currentRetryDelay = INITIAL_RETRY_DELAY_MS
+        
+        // Save connection info for reconnection
+        lastHost = host
+        lastPort = port
+        
         _connectionState.value = ConnectionState.Connecting
         
         val url = "ws://$host:$port"
@@ -66,6 +85,7 @@ class WebSocketClient {
         webSocket = client.newWebSocket(request, object : WebSocketListener() {
             override fun onOpen(webSocket: WebSocket, response: Response) {
                 Log.i(TAG, "WebSocket connected")
+                currentRetryDelay = INITIAL_RETRY_DELAY_MS // Reset on successful connection
                 startInputSender()
             }
             
@@ -77,24 +97,65 @@ class WebSocketClient {
                 Log.e(TAG, "WebSocket error: ${t.message}")
                 _connectionState.value = ConnectionState.Error(t.message ?: "Connection failed")
                 cleanup()
+                scheduleReconnect()
             }
             
             override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
                 Log.i(TAG, "WebSocket closed: $reason")
                 _connectionState.value = ConnectionState.Disconnected
                 cleanup()
+                scheduleReconnect()
             }
         })
     }
     
     /**
-     * Disconnect from the server
+     * Disconnect from the server (manual disconnect - no auto-reconnect)
      */
     fun disconnect() {
+        isManualDisconnect = true
+        cancelReconnect()
         webSocket?.send(gson.toJson(mapOf("type" to "disconnect")))
         webSocket?.close(1000, "User disconnected")
         cleanup()
         _connectionState.value = ConnectionState.Disconnected
+    }
+    
+    /**
+     * Cancel any pending reconnection attempts
+     */
+    fun cancelReconnect() {
+        reconnectJob?.cancel()
+        reconnectJob = null
+    }
+    
+    /**
+     * Schedule a reconnection attempt with exponential backoff
+     */
+    private fun scheduleReconnect() {
+        if (!autoReconnectEnabled || isManualDisconnect || lastHost.isEmpty()) {
+            return
+        }
+        
+        reconnectJob?.cancel()
+        reconnectJob = CoroutineScope(Dispatchers.Main).launch {
+            val attemptNumber = when (currentRetryDelay) {
+                INITIAL_RETRY_DELAY_MS -> 1
+                else -> (kotlin.math.log2(currentRetryDelay.toDouble() / INITIAL_RETRY_DELAY_MS) + 1).toInt()
+            }
+            
+            _connectionState.value = ConnectionState.Reconnecting(attemptNumber, currentRetryDelay)
+            Log.i(TAG, "Scheduling reconnect attempt $attemptNumber in ${currentRetryDelay}ms")
+            
+            delay(currentRetryDelay)
+            
+            // Increase delay for next attempt (exponential backoff)
+            currentRetryDelay = (currentRetryDelay * 2).coerceAtMost(MAX_RETRY_DELAY_MS)
+            
+            if (!isManualDisconnect && autoReconnectEnabled) {
+                connect(lastHost, lastPort)
+            }
+        }
     }
     
     /**
@@ -187,3 +248,4 @@ class WebSocketClient {
         _playerId.value = null
     }
 }
+
