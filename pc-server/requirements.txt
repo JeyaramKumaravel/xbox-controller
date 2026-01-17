@@ -1,7 +1,0 @@
-vgamepad>=0.1.0
-websockets>=12.0
-qrcode[pil]>=7.4
-Pillow>=10.0
-pystray>=0.19.5
-netifaces>=0.11.0
-pynput>=1.7.6

@@ -58,7 +58,7 @@ class XboxControllerServerApp:
         """Create the main GUI window"""
         self.root = tk.Tk()
         self.root.title("Xbox Virtual Controller Server")
-        self.root.geometry("450x600")
+        self.root.geometry("425x725")
         self.root.resizable(False, False)
         self.root.configure(bg='#1a1a2e')
         
@@ -122,8 +122,8 @@ class XboxControllerServerApp:
         ttk.Label(players_frame, text="Connected Players:", 
                  style='Status.TLabel').pack(anchor=tk.W)
         
-        # Player slots (1-4)
-        for i in range(1, 5):
+        # Player slots (1-8)
+        for i in range(1, 9):
             player_frame = ttk.Frame(players_frame)
             player_frame.pack(fill=tk.X, pady=3)
             

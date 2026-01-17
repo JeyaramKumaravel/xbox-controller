@@ -46,6 +46,7 @@ wheels/
 venv/
 ENV/
 .venv/
+uv.lock
 
 # Windows
 Thumbs.db

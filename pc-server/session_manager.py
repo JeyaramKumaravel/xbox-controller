@@ -27,7 +27,7 @@ class PlayerSession:
 class SessionManager:
     """Manages player sessions and maps them to controllers"""
     
-    MAX_PLAYERS = 4
+    MAX_PLAYERS = 8
     
     def __init__(self, on_player_connected: Optional[Callable] = None,
                  on_player_disconnected: Optional[Callable] = None):
@@ -106,7 +106,7 @@ class SessionManager:
             session.update_activity()
     
     def _get_available_id(self) -> Optional[int]:
-        """Get the next available player ID (1-4)"""
+        """Get the next available player ID (1-8)"""
         for i in range(1, self.MAX_PLAYERS + 1):
             if i not in self.sessions:
                 return i

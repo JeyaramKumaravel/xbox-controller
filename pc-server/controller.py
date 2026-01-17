@@ -141,7 +141,7 @@ class VirtualController:
 class ControllerManager:
     """Manages multiple virtual controllers for multiplayer support"""
     
-    MAX_CONTROLLERS = 4
+    MAX_CONTROLLERS = 8
     
     def __init__(self):
         self.controllers: Dict[int, VirtualController] = {}
