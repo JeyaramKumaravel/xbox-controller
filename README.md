@@ -1,87 +1,149 @@
-# Xbox Virtual Controller
+# 🎮 Xbox Virtual Controller
 
-A virtual Xbox controller system that turns your Android phone into a wireless game controller for PC.
+Turn your Android phone into a virtual Xbox controller for your PC! This project enables wireless gamepad, mouse, and keyboard control over your local network via WebSocket.
 
-## Features
-- 📱 **Full Xbox Controller Layout** - All buttons, triggers, joysticks, and D-pad
-- 📶 **Wi-Fi Connection** - Connect via QR code scan
-- 🎮 **Multi-Player Support** - Up to 4 simultaneous controllers
-- 📳 **Haptic Feedback** - Vibration on button presses
-- 🖱️ **Touchpad Mode** - Use as a mouse/trackpad
-- ⚙️ **Customizable** - Adjust button sizes, deadzone, haptic intensity
+![Python](https://img.shields.io/badge/Python-3.14+-blue.svg)
+![Android](https://img.shields.io/badge/Android-Kotlin-green.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-## Project Structure
+## ✨ Features
+
+- **Virtual Xbox Controller** - Full gamepad emulation with all buttons, triggers, and analog sticks
+- **Multi-Player Support** - Connect up to 8 controllers simultaneously
+- **Mouse & Keyboard Mode** - Use your phone as a trackpad and keyboard
+- **QR Code Connection** - Scan to connect instantly
+- **System Tray** - Minimize to tray for background operation
+- **Low Latency** - WebSocket-based communication for responsive controls
+
+## 📁 Project Structure
 
 ```
-xbox/
-├── pc-server/          # Python server for Windows
-│   ├── main.py         # GUI application with system tray
-│   ├── server.py       # WebSocket server
-│   ├── controller.py   # Virtual Xbox controller (vgamepad)
-│   ├── session_manager.py  # Multi-player sessions
-│   ├── qr_generator.py # QR code generation
-│   └── requirements.txt
-│
-└── android-controller/ # Kotlin Android app
-    └── app/
-        └── src/main/
-            ├── java/com/xboxcontroller/
-            │   ├── MainActivity.kt      # Connection screen
-            │   ├── ControllerActivity.kt # Main controller
-            │   ├── ScanActivity.kt      # QR scanner
-            │   ├── TouchpadActivity.kt  # Touchpad mode
-            │   ├── controller/          # Custom UI views
-            │   ├── network/             # WebSocket client
-            │   ├── data/                # Data models
-            │   └── settings/            # Settings screen
-            └── res/                     # Layouts & resources
+xbox-controller/
+├── android-controller/     # Android app (Kotlin/Jetpack Compose)
+│   └── app/               
+└── pc-server/              # Windows server (Python)
+    ├── main.py             # GUI application with system tray
+    ├── server.py           # WebSocket server
+    ├── controller.py       # Virtual gamepad (vgamepad)
+    ├── mouse_keyboard.py   # Mouse & keyboard control
+    ├── qr_generator.py     # QR code generation
+    └── session_manager.py  # Player session handling
 ```
 
-## Setup Instructions
+## 🚀 Getting Started
 
-### PC Server (Windows)
+### Prerequisites
 
-1. **Install ViGEmBus Driver** (required for virtual controller):
-   - Download from: https://github.com/nefarius/ViGEmBus/releases
-   - Run the installer
+- **PC**: Windows 10/11, Python 3.14+
+- **Phone**: Android device on the same WiFi network
+- **Driver**: [ViGEmBus Driver](https://github.com/ViGEm/ViGEmBus/releases) (required for virtual controller)
 
-2. **Install Python dependencies**:
+### PC Server Setup
+
+1. **Install ViGEmBus Driver**
+   Download and install from [ViGEmBus Releases](https://github.com/ViGEm/ViGEmBus/releases)
+
+2. **Install Chocolatey then add uv and make**
+   Open PowerShell as Administrator and run:
+   ```powershell
+   Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+   choco install uv make
+   ```
+
+2. **Install Dependencies**
+   
    ```bash
    cd pc-server
-   pip install -r requirements.txt
+   uv sync
    ```
 
-3. **Run the server**:
+3. **Run the Server**
+   
    ```bash
-   python main.py
+   make run
    ```
 
-4. A window will appear with a QR code and server status
+   A window will appear with a QR code to scan.
+
+### Android App Setup
+
+1. **Build the App**
+   
+   ```bash
+   cd android-controller
+   ./gradlew assembleDebug
+   ```
+
+2. **Install on Phone**
+   
+   Install the APK from `app/build/outputs/apk/debug/`
+
+3. **Connect**
+   
+   - Open the app on your phone
+   - Scan the QR code displayed on your PC
+   - Start playing!
+
+## 🎯 Usage
+
+### Controller Mode
+Use all standard Xbox controller inputs:
+- Analog sticks (left/right)
+- D-Pad
+- A, B, X, Y buttons
+- Bumpers (LB/RB)
+- Triggers (LT/RT)
+- Start, Back, Guide buttons
+
+### Mouse Mode
+- Swipe to move cursor
+- Tap for left click
+- Two-finger tap for right click
+- Pinch to scroll
+
+### Keyboard Mode
+- Full QWERTY keyboard
+- Special keys and shortcuts
+
+## 🔧 Configuration
+
+The server runs on port **8765** by default. Both devices must be on the same local network.
+
+## 📦 Dependencies
+
+### PC Server
+| Package | Purpose |
+|---------|---------|
+| vgamepad | Virtual Xbox controller emulation |
+| websockets | Real-time communication |
+| qrcode | QR code generation |
+| Pillow | Image processing |
+| pystray | System tray support |
+| netifaces | Network interface detection |
+| pynput | Mouse/keyboard control |
 
 ### Android App
+- Kotlin
+- Jetpack Compose
+- WebSocket client
 
-1. **Build the app**:
-   - Open `android-controller` in Android Studio
-   - Build and install on your Android device
+## 🛠️ Development
 
-2. **Connect**:
-   - Ensure your phone and PC are on the same Wi-Fi network
-   - Tap "Scan QR Code" and point at the PC screen
-   - Or manually enter the server IP address
+### Building Standalone Executable
 
-## Usage
+```bash
+cd pc-server
+make build
+```
 
-- **Switch Modes**: Use the mode buttons in the center to switch between controller and touchpad modes
-- **Settings**: Customize button sizes, haptic feedback, and joystick deadzone
-- **Multi-Player**: Connect up to 4 Android devices for local multiplayer
+## 📝 License
 
-## Requirements
+This project is licensed under the MIT License.
 
-### PC
-- Windows 10/11
-- Python 3.8+
-- ViGEmBus driver
+## 🤝 Contributing
 
-### Android
-- Android 7.0+ (API 24)
-- Camera (for QR scanning)
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+Made with ❤️ for gamers who want to use their phone as a controller

@@ -47,6 +47,7 @@ venv/
 ENV/
 .venv/
 uv.lock
+*.spec
 
 # Windows
 Thumbs.db
